@@ -1,0 +1,751 @@
+All right, we're getting closer and closer to having our app look like this, but we clearly see that
+
+we have a search box here.
+
+So in this video, we're going to work on having this interactive.
+
+Looking back at our app, we see that what we definitely need a title and the search box, so let's
+
+create that.
+
+If I go to Index Dot, James, I think now that we're officially building an app instead of having the
+
+Carlist component here, we should have one big component called app.
+
+And this app will be the father of all our children, all our components.
+
+Let's do that.
+
+Let's build the app component first.
+
+And this app component, again, will import react from react.
+
+And app.
+
+Well, equal.
+
+The card list component, which we can just copy and put in here.
+
+And again, changing this to Bable, we want to import.
+
+The card list component.
+
+And we also want to have our robots actually imported.
+
+In here, so we have access to it.
+
+And then finally, we now just want to render the app component so we can just bring this back to the
+
+way it was.
+
+We save.
+
+We need to obviously export our app, so we'll say.
+
+Export.
+
+Default app.
+
+Save this.
+
+Let's go back, yeah.
+
+Everything is still working now within the Scarless, we also have a header, so we'll do hattar one
+
+that will say Wrobel friends.
+
+And again, remember that we need to return just one single parent, so we need to do something like
+
+a div to wrap it.
+
+And I need to close this H1 tag.
+
+All right, I have my Rabois friends title, and we also need a search box, and although each one was
+
+easy and we didn't have to build a component for it, it sounds like we probably want to create a search
+
+box component.
+
+For this app, so let's do that.
+
+I'm going to say.
+
+Import search box.
+
+From a file that will create called Search Box.
+
+We will create a new file.
+
+And this file will have.
+
+Imports react from react.
+
+And the search box.
+
+We'll have a function that returns us, think about what it returns.
+
+Well, it definitely returns and input, right, that is type of search and let's also have a placeholder.
+
+Let's close this and a placeholder.
+
+That says search robots.
+
+We close this and safe and we have to export export default.
+
+Search box.
+
+Save compiled successfully.
+
+All right, we have our search box, but, well, it's not searching anything right now.
+
+Let's add this on a new line.
+
+Just so it looks nicer and it's always a good idea, just in case you want to add more things to the
+
+search box to wrap everything in a div.
+
+So I'm going to do that right now.
+
+And this day, we'll just have a class name of padding to, again, using tachyons and with the input
+
+we can do a class name.
+
+And I just know these look good.
+
+So I'm just going to copy and paste.
+
+You're just padding or with background.
+
+Lightest blue if I do this.
+
+And let's go back.
+
+All right.
+
+This looks better.
+
+We want to center everything.
+
+So maybe in the app we can just add a class name.
+
+Equals to.
+
+Tax center, see if that works.
+
+There you go.
+
+That's much better.
+
+I like this already.
+
+Now, how can we make this interactive?
+
+Up until now, we've just had this static websites, but real websites are interactive, right?
+
+Let's think about this logically, we have an app.
+
+We have a search box.
+
+And we have a card list.
+
+But the search box component needs to communicate with the Carlist and same with the Carlist, Carlist
+
+needs to know what is in the search box so that it can filter out robots accordingly.
+
+Let's go back to our image that we have of one way dataflow.
+
+Looking at this, we have the app component and then the card list component that has cards and then
+
+the search box component that doesn't have any children now.
+
+But in order for these two to communicate, we have a one way dataflow that is they need to send their
+
+information to their parent and the parent tells them what to do.
+
+Now, how can we do that?
+
+Up until now, we just had some data that we just trickled down, but we never had it where one of the
+
+children had to modify data or communicate with a neighbor.
+
+Well, in order to do this, React has an idea of something called state, up until now, we learned
+
+about props such as properties that we keep passing down, but we've never changed them because of react
+
+just with the props.
+
+If I go to Carlist, it just with the props that it receives and it just renders something.
+
+And this one way dataflow is really nice because this card list is a pure function.
+
+It receives an input and then it always returns the same output.
+
+So if robots are always the same, it's always going to return the same thing.
+
+It's deterministic, pure functions, and it's something that we've talked about before.
+
+And this is a really, really good thing.
+
+These components are what's called pure components, and some even call it dumb components.
+
+It just means that they don't really need to know about anything other than the fact that they're pure
+
+functions that receive something and return something.
+
+And this is really nice because we always know what this is going to look like.
+
+And that's all we had up until this point, but now we have to worry about something other than props.
+
+Props never change.
+
+Props are always just inputs that we get and we've never modified them.
+
+But in this case, we need a memory in our app.
+
+We need this to communicate with this and also change and update accordingly.
+
+And that's what state is in react state.
+
+And you'll hear this in computer programming.
+
+A lot simply means the description of your app.
+
+A state is simply an object, an object that describes your application.
+
+And this state which describes our application is the robots and whatever is entered in the search box.
+
+And state is able to change, we're able to change the value of the search box, the value of the input,
+
+and we're able to change what robots ouray means, what gets displayed.
+
+This is a rule that you just have to remember, props are simply things that come out of state.
+
+So a parent feeds state into a child component, and as soon as the child component component receives
+
+a state, it's a property that child can never change that property.
+
+The parent just tells it what the state is and the child receives it as robots.
+
+So the first thing we need to do is to start being able to use state in our app, the description of
+
+what our state should be.
+
+So let's just do a constant state for now and show you that our state needs to have a robust array and
+
+it needs to have let's call it.
+
+Search field.
+
+And this is just whatever our search field needs, but in order to use state, we have to go back to
+
+our original way that we created Rijad components.
+
+If you remember this, when we first did create react tap.
+
+We create a class.
+
+And we do that.
+
+By saying export default or export.
+
+Extends react dot component.
+
+It extends the component class and again, we can use shorthand here and just say.
+
+So now we can just remove reac from here.
+
+And this always has a render function.
+
+That has to return something, which is this.
+
+Again, is just the syntax that you have to.
+
+Get used to.
+
+If I say this and I made a mistake here, instead of export, this should say class, so yeah, class
+
+app extends component and then we do export default app.
+
+So again, we're just declaring a class I save and we just have something that says state is assigned
+
+a value but never used.
+
+That's because that's pretty true.
+
+We don't use it, so how can we add state will and react?
+
+We simply do a constructor.
+
+You might remember this from when we spoke about object.
+
+And this constructor in here, we can declare the state.
+
+We simply say this state equals.
+
+And in here, we just put whatever we want our state to have.
+
+So if I save this.
+
+I get this is not allowed before super again, something that you might remember from the Advanced Objects
+
+video, in order to use this, we have to do this weird thing where we call super, which calls the
+
+constructor of component.
+
+If I do this.
+
+And safe, everything's working fine.
+
+And now we have our state, which is robots and search field.
+
+And this state, as I said before, is what describes our app, these are the things that can change
+
+and that's what it is state is something that can change and affect our app.
+
+And they usually live in the parent component, the component that is the parent that just kind of passes
+
+state to different components.
+
+Now, I can access robots not from here, but from this DOD state dot robots and again, just react
+
+syntax that you'll have to get used to.
+
+All right, so everything is working as expected, and you see that our state, which is robots, is
+
+now passed down as props.
+
+So card list accepts robots as props, even though in the app dogs, it's state.
+
+And like I said, because app now owns state, that includes robots, it's allowed to change it.
+
+OK, now the way we can communicate them, we have these two values and ideally in the search box.
+
+I have something called on search change, which, again, is a function that I'm just going to make
+
+up.
+
+This is just a random name that I've created.
+
+And on search change, I want to say that every time the input changes, just like we did with dumb
+
+manipulation, we get an event.
+
+And within this event, I'm going to console dialog, this event.
+
+Created a function.
+
+And I want to any time this input changes to trigger console Dahlborg so we can pass this actually now
+
+I can say.
+
+Search change is on search change, but again, because this is an object we have to say this dot so
+
+that it says this, which is the app dot on search change is searching.
+
+If I save this.
+
+And now go to the search box.
+
+I now have search change.
+
+As a function, so I can just say just like an e-mail, remember, and him all he can do on change HTML.
+
+It's an event we're just listening to any time the input changes, I can say on change equals.
+
+Sirtuins.
+
+Let's see if that works, I'm getting no errors, if I go back to my app, I open up the console and
+
+I type in something like that, I'm getting the event.
+
+And this is just something you have to remember is that with an event we always have event dot target
+
+dot value, which should give us the value of the.
+
+Let's save that.
+
+And type in something here.
+
+Look at that, we're now noticing the difference as we type.
+
+So let's go over one more time, what just happened?
+
+And again, I know this is tough, this took me a while to get when we first started, but this diagram
+
+really explains it well.
+
+I have my app component, my search box and my card list.
+
+Any time the search bloc changes on change, I'm going to run the function, I'm going to.
+
+Call this function, and the way we call it is we add this remember how when we did Dom events, we
+
+defined the function and then every time the event happens, it would call it.
+
+So we are saying every time the on change event is triggered, called the.
+
+Search function, and if you remember, the search function, which is a prop, is the on search change
+
+function that is defined in the app.
+
+That's how we communicate with the parent.
+
+It triggers the event.
+
+The parent says help run this function and now this function.
+
+Gets read, but now that I have the value of the search input, I can now directly communicate that
+
+search input to the robot's list.
+
+Let's see how that works.
+
+We can create a variable, let's say, filtered robots.
+
+And this will equal the this state.
+
+Dog robots.
+
+And these robots, which is Zeray, again, this is how we access state.
+
+Is going to use the filter filtering our way, we give it robots, and now our array will have to return
+
+a condition and the conditions are going to be robots dot name.
+
+And we're going to do something that we haven't seen before, which is to.
+
+Lower case, and this is a method that comes with all strengths and it just makes everything lower case,
+
+and this is good for comparison.
+
+So we don't have to compare capitalized or lowercase.
+
+And if the name of robots, which is now lowercase.
+
+Includes.
+
+Is another method, and again, it's pre-built into JavaScript if it includes the search field.
+
+And again, we want to do two lower case in case, well, in case we use capitals or lower case, it
+
+works both ways and there it is.
+
+If the name of the robots in lowercase includes.
+
+And this does the comparison, if anything, in the string includes two lower case, well then only
+
+return the robots that returns.
+
+True to this, let's save.
+
+Oh, and you see here the how I get the search field there, because, well, it's part of the state.
+
+I have to do this state search field if I save this.
+
+I get that filter robots is assigned a value but never used, but don't worry, we can now console log
+
+this and see what we get.
+
+If I save.
+
+Let's go back to our app, and if I see something here, I get an error and this is an error that is
+
+very, very confusing.
+
+It is tricky the first time.
+
+But bear with me here.
+
+The problem right now is that the value of this well, it's not referring to the app because the event
+
+happened in the input.
+
+The value of this is well, the input and input doesn't have state robots.
+
+And this is a trick that you always forget.
+
+But just keep this in mind as a rule of thumb.
+
+With anything that comes from react so constructor and render our pre-built and react, any time you
+
+make your own methods on a component, use this syntax.
+
+So error functions.
+
+And this makes sure that the this value is according to where it was created, which is the app.
+
+I know it's confusing.
+
+You can read up more about it.
+
+I'll leave resource for it.
+
+It's a tough topic to get.
+
+But again, rule of thumb, use the arrows if I do this now and I click.
+
+There you go.
+
+I now get.
+
+Robots.
+
+But here's the thing.
+
+Search field right now, you see that I still have 10 robots, it's not really filtering anything and
+
+that is because my search field is always an empty string in order to update state again, another rule
+
+of react is to do this dot set state.
+
+And it's, again, a method that comes with react.
+
+And any time you want to change state, you always do this.
+
+You don't do this dot state search field equals you never do that.
+
+You have to do this dot.
+
+Set.
+
+St..
+
+And within here, we just say search field is and again, we're using an object, so search field is
+
+now going to be event dot target, dot valley.
+
+If I say this.
+
+And go back.
+
+You see that now everything is being filtered.
+
+I'm changing the state so that the search field always gets updated and now we're filtering the robots
+
+according to the changed search field.
+
+OK, so one last thing.
+
+Looking at this, we have the fact that filter robots is still not assigned, and you're right, if
+
+we look at this, we've now communicated the search box with the app and we have the search field constantly
+
+changing.
+
+So now we need to communicate it to the filtered robots.
+
+What we can do is that filtered robots can now be used as props instead of this state, that robots.
+
+So let's do that.
+
+Let's move this down here.
+
+And now we have access to filter robots, and instead of passing this stuff, state that robots, we
+
+simply pass filtered robots.
+
+If I see this, make sure the search bar is saved as well.
+
+And now I go back.
+
+I'm going to close the tab and let's check it out.
+
+Look at that, we have our app working.
+
+How cool is that?
+
+Let's go over it one more time to show you exactly what it does.
+
+We have our app component that has two states.
+
+Robots and search field and because app owns the state, any component that has state uses the class
+
+syntax so they can use the constructor function to create this DOT state and this state is what changes
+
+in an app.
+
+It's what describes the app.
+
+Remember when I said the virtual dorm is just a JavaScript object?
+
+The virtual dom is just an object that collects this entire state and we act uses this state to render
+
+and pass them down as props to these components so that these components that are just pure functions
+
+can just render.
+
+And we always know that the app is going to look the same because, well, they're just simple, pure
+
+functions.
+
+We manage the state and here the app is the only thing that can change the state, but it can pass down
+
+things such as props.
+
+So we pass down on social change to the search box and the search box.
+
+Every time there's an odd change on the input, it lets the app know, hey, there was a change on this
+
+function.
+
+It runs the function with the event and updates the state of the search feel to whatever we type.
+
+Now, with the information that we have from the search box, we can now communicate to the card list
+
+and tell it, hey, I want you to filter the robot's state to now have only what includes in the search
+
+field.
+
+And instead of passing the this state, our robots, we just passed the filtered robots.
+
+You might be asking yourself what robots never really changes, does it?
+
+We always just create a new array called filtered robots and we always pass that down.
+
+Does this need to be part of the state and right now?
+
+Not really, because we're just have a hardcoded robot.
+
+But when we get later on into the course, you'll see that that's not the case.
+
+Most of the time you're getting the users or robots from another place over the Internet, in which
+
+case we will need robots to change from an empty array to an array after we go and grab all of our users.
+
+All right, that was a lot I know, I know it's a lot of information, a lot of new syntax, but as
+
+you can see with a few lines of code, we build a pretty awesome app.
+
+In the next video, we're going to finish this up and finalize our app.
+
+So it looks as pretty as this.
+
+I'll see in that one by.
+
+===========================================================================
+CWD: Styling Your React App
+OK, are Roma friends up is starting to look good, it does some searching, which is great, it's very
+
+interactive, but let's add some style said just so it looks like this.
+
+And I mean, Styles is something that we've already covered.
+
+I just want to get you up and running quickly.
+
+Let's start off with first the background.
+
+As you can see, we can just generate a gradient and have that background.
+
+I've already found a really good background gradient that we can use.
+
+You can use the background generator that we've actually already created in previous videos.
+
+For now, as you know, if we want to change the success of our entire app, well, we have index success,
+
+which is perfect for this.
+
+And then we can just put in the gradient that we want going to save this and look at that.
+
+It tells us that there's an update and gradient has outdated direction.
+
+Syntax, new syntax is like two left instead of right.
+
+Well, isn't that convenient?
+
+Let's do that.
+
+Two left.
+
+Let's see if that still works.
+
+OK, everything's looking nice, perfect, let's fix our font now, if you see over here, we have this
+
+cool font.
+
+How did I get that?
+
+Actually, I just Googled for the second logo font.
+
+And I found this website that has free fonts that you can use.
+
+And we can actually just click on generate font face with font, and this is something that you don't
+
+really need to know is just a matter of Googling.
+
+You find the font that you want, but if you download this file, you'll see that.
+
+It actually has the W o f f, which is actually a font file and styles access, so it actually tells
+
+you what you can include.
+
+Let's copy that.
+
+Added to our had our one, which if you look over here, he lives in App Dot J.S..
+
+Using Aptos access, which I think we've deleted that already, so let's bring it back by adding a new
+
+file app DOT success, so we'll just copy and paste what we did.
+
+And Font Face just tells us our font.
+
+And in order to use that, we'll just say each one.
+
+Has Phonte family of ciga.
+
+Logo, font.
+
+Now, this won't actually do anything because, well, we need the font file so they can find Saige
+
+logo font.
+
+And that's simply a matter of us.
+
+Dragging in our font file, let's minimize this.
+
+Into our robo friends.
+
+And let's see now, it should be right over here.
+
+And we can simply access it by looking at the euro.
+
+If our app DOT successful has access to this font, we can just move it.
+
+Into our source folder.
+
+All right, and one thing you might notice is that, well, nothing will change because in order for
+
+this case file to work, we have to import it.
+
+So always remember import.
+
+Aaberg CSFs, save it compiling.
+
+All right, I don't know if you can see it, but it's there, so we want to make it bigger and obviously
+
+the color black doesn't work well with this background.
+
+Again, this part is in, so I'm going to go through this quickly, I have a few stalls here, font
+
+weight and a color that is nice.
+
+Make sure that we have it imported.
+
+And using tachyons, we can just make this bigger, we can just say class name equals.
+
+You can do F1, F2, let's do F2.
+
+Thuan.
+
+All right, that looks pretty good.
+
+Our app is looking nice and clean.
+
+There's still a few changes that we want to make.
+
+But overall, everything looks good, we've played around a bit with the success, we've added a new
+
+font file and we've changed the background of indexed thought JS file with the index dot file.
+
+All right, we're going to get back to learning more react in the next video, I'll see in that one.
+
+Bye bye.
